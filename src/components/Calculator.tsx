@@ -4,6 +4,8 @@ import NumberButton from './NumberButton';
 import OperatorButton from './OperatorButton';
 import OperatorType from '../base/OperatorType';
 
+import '../styles/calculator.css';
+
 const Calculator: React.FC<{}> = (props) => {
 
   const [input, setInput] = React.useState<string>('');
@@ -28,8 +30,12 @@ const Calculator: React.FC<{}> = (props) => {
   }
 
   React.useEffect(() => {
-    if (calStack[calStack.length - 1] === OperatorType.Result) {
+    const lastInput = calStack[calStack.length - 1];
+    if (lastInput === OperatorType.Result) {
       calculateResult();
+    } else if (lastInput === OperatorType.Clear) {
+      setInput('');
+      setCalStack([]);
     }
   }, [calStack]);
 
@@ -64,9 +70,18 @@ const Calculator: React.FC<{}> = (props) => {
     setCalStack([]);
   }
 
+  const getGridPosition = (x: number, y: number, height?: number, width?: number) => {
+    return {
+      gridColumnStart: y,
+      gridColumnEnd: y + (height || 0),
+      gridRowStart: x,
+      gridRowEnd: x + (width || 0)
+    };
+  }
+
   return (
-    <div>
-      <div>
+    <div className="calculator-container">
+      <div className="calculator-result" style={getGridPosition(1, 1, 4)}>
         {
           calStack.map(val => {
             return (
@@ -76,41 +91,30 @@ const Calculator: React.FC<{}> = (props) => {
         }
         {input}
       </div>
-      <ResultBoard></ResultBoard>
       
-      <div>
-        <OperatorButton value={'AC'} onClick={onNumberClick.bind(undefined, 'AC')}/>
-        <OperatorButton value={'+/-'} onClick={onNumberClick.bind(undefined, '+/-')}/>
-        <OperatorButton value={'%'} onClick={onNumberClick.bind(undefined, '%')}/>
-        <OperatorButton value={'/'} onClick={onOperatorClick.bind(undefined, OperatorType.Divide)}/>
-      </div>
-      
-      <div>
-        <NumberButton value={7} onClick={onNumberClick}/>
-        <NumberButton value={8} onClick={onNumberClick}/>
-        <NumberButton value={9} onClick={onNumberClick}/>
-        <OperatorButton value={'x'} onClick={onOperatorClick.bind(undefined, OperatorType.Multiple)}/>
-      </div>
-      
-      <div>
-        <NumberButton value={4} onClick={onNumberClick}/>
-        <NumberButton value={5} onClick={onNumberClick}/>
-        <NumberButton value={6} onClick={onNumberClick}/>
-        <OperatorButton value={'-'} onClick={onOperatorClick.bind(undefined, OperatorType.Minus)}/>
-      </div>
+      <OperatorButton value={'AC'} onClick={onNumberClick.bind(undefined, 'AC')} style={getGridPosition(2, 1)}/>
+      <OperatorButton value={'+/-'} onClick={onNumberClick.bind(undefined, '+/-')} style={getGridPosition(2, 2)}/>
+      <OperatorButton value={'%'} onClick={onNumberClick.bind(undefined, '%')} style={getGridPosition(2, 3)}/>
+      <OperatorButton value={'/'} onClick={onOperatorClick.bind(undefined, OperatorType.Divide)} style={getGridPosition(2, 4)}/>
+    
+      <NumberButton value={7} onClick={onNumberClick} style={getGridPosition(3, 1)}/>
+      <NumberButton value={8} onClick={onNumberClick} style={getGridPosition(3, 2)}/>
+      <NumberButton value={9} onClick={onNumberClick} style={getGridPosition(3, 3)}/>
+      <OperatorButton value={'x'} onClick={onOperatorClick.bind(undefined, OperatorType.Multiple)} style={getGridPosition(3, 4)}/>
+    
+      <NumberButton value={4} onClick={onNumberClick} style={getGridPosition(4, 1)}/>
+      <NumberButton value={5} onClick={onNumberClick} style={getGridPosition(4, 2)}/>
+      <NumberButton value={6} onClick={onNumberClick} style={getGridPosition(4, 3)}/>
+      <OperatorButton value={'-'} onClick={onOperatorClick.bind(undefined, OperatorType.Minus)} style={getGridPosition(4, 4)}/>
 
-      <div>
-        <NumberButton value={1} onClick={onNumberClick}/>
-        <NumberButton value={2} onClick={onNumberClick}/>
-        <NumberButton value={3} onClick={onNumberClick}/>
-        <OperatorButton value={'+'} onClick={onOperatorClick.bind(undefined, OperatorType.Plus)}/>
-      </div>
+      <NumberButton value={1} onClick={onNumberClick} style={getGridPosition(5, 1)}/>
+      <NumberButton value={2} onClick={onNumberClick} style={getGridPosition(5, 2)}/>
+      <NumberButton value={3} onClick={onNumberClick} style={getGridPosition(5, 3)}/>
+      <OperatorButton value={'+'} onClick={onOperatorClick.bind(undefined, OperatorType.Plus)} style={getGridPosition(5, 4)}/>
       
-      <div>
-        <NumberButton value={0} onClick={onNumberClick}/>
-        <NumberButton value={'.'} onClick={onNumberClick}/>
-        <OperatorButton value={'='} onClick={onOperatorClick.bind(undefined, OperatorType.Result)}/>
-      </div>
+      <NumberButton value={0} onClick={onNumberClick} style={getGridPosition(6, 1, 2)}/>
+      <NumberButton value={'.'} onClick={onNumberClick} style={getGridPosition(6, 3)}/>
+      <OperatorButton value={'='} onClick={onOperatorClick.bind(undefined, OperatorType.Result)} style={getGridPosition(6, 4)}/>
     </div>
   )
 }

@@ -4,7 +4,8 @@ enum OperatorType {
   Multiple = "x",
   Divide = "/",
 
-  Result = "="
+  Result = "=",
+  Clear = "AC"
 }
 
 export default OperatorType;

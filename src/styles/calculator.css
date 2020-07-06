@@ -1,0 +1,37 @@
+.calculator-container {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 15% 15% 15% 15% 15%;
+
+  height: 100%;
+}
+
+.calculator-item {
+  display: grid;
+}
+
+.calculator-result {
+  background: dimgray;
+  color: white;
+  font-size: 3rem;
+
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.calculator-button {
+  border: #aaaaaa 1px solid;
+}
+
+.number-text {
+  background: lightgray;
+  color: white;
+  font-size: 2rem;
+}
+
+.operator-text {
+  background: orange;
+  color: white;
+  font-size: 2rem;
+}
