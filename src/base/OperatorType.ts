@@ -3,6 +3,8 @@ enum OperatorType {
   Minus = "-",
   Multiple = "x",
   Divide = "/",
+  Moduler = "%",
+  PlusMinus = "+/-",
 
   Result = "=",
   Clear = "AC"

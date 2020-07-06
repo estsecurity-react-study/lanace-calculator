@@ -92,9 +92,9 @@ const Calculator: React.FC<{}> = (props) => {
         {input}
       </div>
       
-      <OperatorButton value={'AC'} onClick={onNumberClick.bind(undefined, 'AC')} style={getGridPosition(2, 1)}/>
-      <OperatorButton value={'+/-'} onClick={onNumberClick.bind(undefined, '+/-')} style={getGridPosition(2, 2)}/>
-      <OperatorButton value={'%'} onClick={onNumberClick.bind(undefined, '%')} style={getGridPosition(2, 3)}/>
+      <OperatorButton value={'AC'} onClick={onOperatorClick.bind(undefined, OperatorType.Clear)} style={getGridPosition(2, 1)}/>
+      <OperatorButton value={'+/-'} onClick={onOperatorClick.bind(undefined, OperatorType.PlusMinus)} style={getGridPosition(2, 2)}/>
+      <OperatorButton value={'%'} onClick={onOperatorClick.bind(undefined, OperatorType.Moduler)} style={getGridPosition(2, 3)}/>
       <OperatorButton value={'/'} onClick={onOperatorClick.bind(undefined, OperatorType.Divide)} style={getGridPosition(2, 4)}/>
     
       <NumberButton value={7} onClick={onNumberClick} style={getGridPosition(3, 1)}/>
